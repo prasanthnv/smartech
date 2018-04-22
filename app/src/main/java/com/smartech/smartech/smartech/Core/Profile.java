@@ -170,6 +170,8 @@ public class Profile implements Serializable{
             jsonObject.put("id",this.id + "");
             jsonObject.put("name",this.name + "");
             jsonObject.put("settings",this.getSettings());
+            jsonObject.put("type",this.getType());
+            jsonObject.put("trigger",this.getTrigger());
             info = jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();

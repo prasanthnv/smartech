@@ -2,6 +2,7 @@ package com.smartech.smartech.smartech.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -26,10 +27,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         // query to create profiles table
-        String CREATE_PROFILES_TABLE = "CREATE TABLE profiles( INTEGER PRIMARY KEY,name TEXT, type TEXT,trigger TEXT,data TEXT)";
+        String CREATE_PROFILES_TABLE = "CREATE TABLE profiles(id INTEGER PRIMARY KEY,name TEXT, type TEXT,trigger TEXT,data TEXT)";
 
         // query to create contacts table
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE contacts( INTEGER PRIMARY KEY,name TEXT, phone TEXT)";
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE contacts(id INTEGER PRIMARY KEY,name TEXT, phone TEXT)";
 
         // creating tables
         db.execSQL(CREATE_PROFILES_TABLE);
@@ -61,6 +62,35 @@ public class DatabaseHandler extends SQLiteOpenHelper{
       //2nd argument is String containing nullColumnHack
         db.close(); // Closing database connection
         return id;
+    }
+
+
+    public Cursor getProfiles(SQLiteDatabase db){
+        String query = "Select * from profiles";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
+    }
+
+    public void deleteContacts(SQLiteDatabase db,String id){
+        db.execSQL("delete from contacts where id='"+id+"'");
+    }
+    public void deleteProfile(SQLiteDatabase db,String id){
+        db.execSQL("delete from profiles where id='"+id+"'");
+    }
+
+
+    public Cursor getWifiAction(SQLiteDatabase db,String ssid){
+        String query = "Select * from profiles where type='wifi' AND trigger = '"+ssid+"'";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
+    }
+    public Cursor getSmsAction(SQLiteDatabase db,String message){
+        String query = "Select * from profiles where type='sms' AND trigger = '"+message+"'";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
     }
 
 }

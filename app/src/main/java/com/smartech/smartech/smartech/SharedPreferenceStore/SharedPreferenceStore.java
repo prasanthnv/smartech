@@ -15,17 +15,14 @@ public class SharedPreferenceStore {
 
 
 
-    public void setProfileName(String name){
+    public void setProfile(String profile){
         SharedPreferences.Editor editor = this.preferences.edit();
-        editor.putString("PROFILE_NAME",name);
+        editor.putString("ACTIVE_PROFILE",profile);
         editor.commit();
     }
 
-    public String getProfileName(){
-        return this.preferences.getString("PROFILE_NAME","");
-    }
-    public String getProfileID(){
-        return this.preferences.getString("PROFILE_ID","");
+    public String getProfile(){
+        return this.preferences.getString("ACTIVE_PROFILE","{}");
     }
 
 }

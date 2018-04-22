@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,27 +7,43 @@
     tools:context="com.smartech.smartech.smartech.ProfileTriggerSelectActivity">
 
 
-    <LinearLayout
-        android:visibility="visible"
+    <ScrollView
+        android:visibility="gone"
         android:id="@+id/view_location"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:padding="18dp"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_height="wrap_content">
-
             <fragment
                 android:id="@+id/place_autocomplete_fragment"
                 android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+            <Button
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorTextLight"
+android:text="Use Device Location"
+                android:id="@+id/btn_location"
+                android:layout_height="wrap_content"
+                />
+            <WebView
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/webview_map"></WebView>
+
 
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
+
+    </ScrollView>
+    <ScrollView
         android:visibility="gone"
         android:id="@+id/view_wifi"
         android:layout_width="match_parent"
@@ -48,15 +64,51 @@
                 android:layout_marginBottom="10dp"
                 />
 
-            <ListView
-                android:id="@+id/list_wifi"
+            <Spinner
+                android:id="@+id/spinner_wifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+    </ScrollView>
+    <ScrollView
+        android:visibility="gone"
+        android:id="@+id/view_sms"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type SMS Trigger"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_edittext_bg"
-                android:hint="Location"
+                android:id="@+id/txt_sms_trigger"
                 />
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </ScrollView>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorTextLight"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_save"
+        />
+</RelativeLayout>
