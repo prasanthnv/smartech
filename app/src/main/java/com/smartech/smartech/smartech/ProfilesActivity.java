@@ -16,8 +16,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.smartech.smartech.smartech.Adapters.ProfilesListAdapter;
+import com.smartech.smartech.smartech.Core.Profile;
 import com.smartech.smartech.smartech.Database.DatabaseHandler;
 import com.smartech.smartech.smartech.SharedPreferenceStore.SharedPreferenceStore;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -74,11 +77,10 @@ public class ProfilesActivity extends AppCompatActivity {
         list_profiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Toast.makeText(ProfilesActivity.this, profileData.get(position).toString(), Toast.LENGTH_SHORT).show();
                 new AlertDialog.Builder(ProfilesActivity.this)
                         .setTitle("Delete")
                         .setMessage("Are you sure to delete")
-                        // .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {

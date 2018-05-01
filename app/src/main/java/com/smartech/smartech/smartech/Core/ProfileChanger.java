@@ -10,7 +10,9 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.smartech.smartech.smartech.R;
 import com.smartech.smartech.smartech.SharedPreferenceStore.SharedPreferenceStore;
+import com.smartech.smartech.smartech.Utils.Alert;
 
 /**
  * Created by prasanthvenugopal on 11/04/18.
@@ -42,12 +44,18 @@ public void setBrightness(int brightness){
         Log.e("Profile => ", profile.getSound());
         switch (profile.getSound()){
             case Profile.SOUND_RING:
+                Alert.showModeDilaog(context, R.drawable.ic_volume_on,"Ring Mode Acticated",2000);
+
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                 break;
                 case Profile.SOUND_VIBRATE:
+                    Alert.showModeDilaog(context,R.drawable.ic_vibration,"Vibrate Mode Acticated",2000);
+
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                 break;
             case Profile.SOUND_SILENT:
+                Alert.showModeDilaog(context,R.drawable.ic_volume_off,"Silent Mode Acticated",2000);
+
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 break;
             default:
@@ -72,27 +80,6 @@ public void setBrightness(int brightness){
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                 break;
         }
-    }
-
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        return (dist);
-    }
-
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
     }
 
 

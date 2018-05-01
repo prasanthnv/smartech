@@ -15,6 +15,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.smartech.smartech.smartech.Receivers.LocationService;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -22,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash_screen);
-
+        startService(new Intent(this, LocationService.class));
         NotificationManager notificationManager =
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 //        if(!Settings.System.canWrite(getApplicationContext())){
@@ -61,7 +63,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(mainIntent);
                     finish();
                 }
-            }, 2000);
+            }, 10);
 //        }
 
 

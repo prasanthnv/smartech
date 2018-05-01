@@ -214,7 +214,7 @@
         android:weightSum="2">
 
         <LinearLayout
-            android:id="@+id/btn_actions"
+            android:id="@+id/btn_reminder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -227,12 +227,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:src="@drawable/ic_actions" />
+
+                android:src="@drawable/ic_alarm_white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Actions"
+                android:text="Reminders"
                 android:textColor="@color/colorDarkHead" />
         </LinearLayout>
 

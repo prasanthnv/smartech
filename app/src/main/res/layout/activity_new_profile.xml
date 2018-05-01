@@ -85,14 +85,7 @@
                      android:id="@+id/radio_wifi"
                      android:checked="false"
                      />
-                 <RadioButton
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="Alarm"
-                     android:tag="alarm"
-                     android:id="@+id/radio_alarm"
-                     android:checked="false"
-                     />
+
                  <RadioButton
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"

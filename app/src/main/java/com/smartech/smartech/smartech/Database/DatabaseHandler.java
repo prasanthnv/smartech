@@ -31,10 +31,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         // query to create contacts table
         String CREATE_CONTACTS_TABLE = "CREATE TABLE contacts(id INTEGER PRIMARY KEY,name TEXT, phone TEXT)";
+        String CREATE_REMINDER_TABLE = "CREATE TABLE reminders(id INTEGER PRIMARY KEY,title TEXT,data TEXT, trigger TEXT)";
 
         // creating tables
         db.execSQL(CREATE_PROFILES_TABLE);
         db.execSQL(CREATE_CONTACTS_TABLE);
+        db.execSQL(CREATE_REMINDER_TABLE);
     }
 
     // Upgrading database
@@ -72,6 +74,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return rs;
     }
 
+    public Cursor getProfilesWithLocation(SQLiteDatabase db){
+        String query = "Select * from profiles where type='location'";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
+    }
+
     public void deleteContacts(SQLiteDatabase db,String id){
         db.execSQL("delete from contacts where id='"+id+"'");
     }
@@ -91,6 +100,33 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         String[] params = null;
         Cursor rs = db.rawQuery(query,params);
         return rs;
+    }
+
+
+    public long addReminder(String title,String data,String triiger ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("title", title);       // Name
+        values.put("data", data);       // Name
+        values.put("trigger", triiger); // trigger
+        // Inserting Row
+        long id =  db.insert("reminders", null, values);
+//        profile.setId(id);
+        //2nd argument is String containing nullColumnHack
+        db.close(); // Closing database connection
+        return id;
+    }
+
+
+    public Cursor getReminder(SQLiteDatabase db){
+        String query = "Select * from reminders";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
+    }
+
+    public void deleteReminder(SQLiteDatabase db,String id){
+        db.execSQL("delete from reminders where id='"+id+"'");
     }
 
 }

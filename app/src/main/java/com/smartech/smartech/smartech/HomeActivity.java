@@ -67,6 +67,9 @@ txt_profile_sound = findViewById(R.id.txt_profile_sound);
             case R.id.btn_profiles:
                 startActivity(new Intent(getApplicationContext(), ProfilesActivity.class));
                 break;
+                case R.id.btn_reminder:
+                startActivity(new Intent(getApplicationContext(), ReminderActivity.class));
+                break;
         }
     }
 }

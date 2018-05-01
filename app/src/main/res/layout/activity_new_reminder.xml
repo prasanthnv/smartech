@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.smartech.smartech.smartech.NewReminderActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Reminder Title"
+            android:gravity="top|left"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_edittext_bg"
+          />
+
+        <EditText
+            android:id="@+id/txt_note"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:hint="Enter Reminder Text"
+            android:gravity="top|left"
+            android:background="@drawable/rounded_edittext_bg"
+            android:inputType="textMultiLine" />
+
+        <fragment
+            android:id="@+id/place_autocomplete_fragment"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorTextLight"
+            android:text="Use Current Location"
+            android:id="@+id/btn_location"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+</ScrollView>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorTextLight"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_save"
+        />
+</RelativeLayout>

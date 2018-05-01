@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:background="@color/colorTextLight"
-android:text="Use Device Location"
+android:text="Use Current Location"
                 android:id="@+id/btn_location"
                 android:layout_height="wrap_content"
                 />
