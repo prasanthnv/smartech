@@ -21,6 +21,16 @@ public class SharedPreferenceStore {
         editor.commit();
     }
 
+    public void setBatteryAlarmEnabled(boolean value){
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.putBoolean("BATTERY_ALARM",value);
+        editor.commit();
+    }
+
+    public boolean isBatteryAlarmEnabled(){
+        return this.preferences.getBoolean("BATTERY_ALARM",false);
+    }
+
     public String getProfile(){
         return this.preferences.getString("ACTIVE_PROFILE","{}");
     }

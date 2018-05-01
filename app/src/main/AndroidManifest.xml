@@ -86,6 +86,14 @@
             android:value="AIzaSyAAN_XJlLWtnTqjCvUAN1QEJR7tMFiQWC4" />
 
         <activity android:name=".NewReminderActivity"></activity>
+        <service
+            android:enabled="true"
+            android:name=".Adapters.BatteryMoniterService"
+            android:exported="true"/>
+        <service
+            android:enabled="true"
+            android:name=".Adapters.RingtonePlayingService"
+            android:exported="true"/>
     </application>
 
 </manifest>

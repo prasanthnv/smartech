@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.smartech.smartech.smartech.Adapters.BatteryMoniterService;
 import com.smartech.smartech.smartech.Receivers.LocationService;
 
 public class SplashScreen extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class SplashScreen extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash_screen);
         startService(new Intent(this, LocationService.class));
+        startService(new Intent(this, BatteryMoniterService.class));
         NotificationManager notificationManager =
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 //        if(!Settings.System.canWrite(getApplicationContext())){
