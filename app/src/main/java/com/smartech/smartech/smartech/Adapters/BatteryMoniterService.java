@@ -82,11 +82,19 @@ public class BatteryMoniterService  extends Service {
             Log.w("Power status",isCharging+"");
 
             if(isCharging && level == 100){
+                // battery @ 100%
                 Intent startIntent = new Intent(context, RingtonePlayingService.class);
                 context.startService(startIntent);
             }else{
                 Intent stopIntent = new Intent(context, RingtonePlayingService.class);
                 context.stopService(stopIntent);
+            }
+
+                if(!isCharging && level == 4){
+                // battery @ 4%
+                Intent startIntent = new Intent(context, RingtonePlayingService.class);
+                startIntent.putExtra("type","alarm");
+                context.startService(startIntent);
             }
 
 

@@ -10,6 +10,8 @@ import android.os.IBinder;
 public class RingtonePlayingService extends Service
 {
     private Ringtone ringtone;
+    Uri notification;
+
 
     @Override
     public IBinder onBind(Intent intent)
@@ -20,7 +22,17 @@ public class RingtonePlayingService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         RingtoneManager ringtoneManager  =new RingtoneManager(getApplicationContext());
-        Uri notification = ringtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        if(intent.hasExtra("type")) {
+            if (intent.getStringExtra("type").equals("ring")) {
+                notification = ringtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            } else if (intent.getStringExtra("type").equals("alarm")) {
+                notification = ringtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            } else  {
+                notification = ringtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            }
+        }else{
+            notification = ringtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        }
         this.ringtone =RingtoneManager.getRingtone(getApplicationContext(), notification);
         ringtone.play();
 
