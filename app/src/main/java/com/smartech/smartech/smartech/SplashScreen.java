@@ -1,21 +1,13 @@
 package com.smartech.smartech.smartech;
 
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.smartech.smartech.smartech.Adapters.BatteryMoniterService;
+import com.smartech.smartech.smartech.Receivers.BatteryMoniterService;
 import com.smartech.smartech.smartech.Receivers.LocationService;
 
 public class SplashScreen extends AppCompatActivity {
@@ -65,7 +57,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(mainIntent);
                     finish();
                 }
-            }, 10);
+            }, 3000);
 //        }
 
 

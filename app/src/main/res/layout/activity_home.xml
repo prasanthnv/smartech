@@ -11,14 +11,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="250dp"
         android:layout_weight="2">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.3"
+            android:alpha="0.4"
             android:scaleType="centerCrop"
+            android:id="@+id/image_background"
             android:src="@drawable/mode_night" />
 
         <LinearLayout
@@ -28,24 +29,23 @@
             android:orientation="vertical"
             android:padding="30dp">
 
-            <TextView
+            <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="SLEEPING"
-                android:id="@+id/txt_profile_name"
                 android:textColor="@color/colorTextLight"
-                android:textSize="34sp" />
+                android:textSize="40sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:id="@+id/txt_profile_sound"
+                android:id="@+id/txt_profile_name"
                 android:fontFamily="sans-serif"
                 android:text="SLEEPING"
                 android:textColor="@color/colorTextLight"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,10 +61,10 @@
                 android:orientation="horizontal"
                 android:paddingBottom="20dp"
                 android:paddingTop="20dp"
-                android:weightSum="3">
+                android:weightSum="4">
 
                 <Button
-                    android:id="@+id/btn_info_sound"
+                        android:id="@+id/btn_info_sound"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -100,17 +100,6 @@
                     android:text="OFF"
                     android:textColor="@color/colorTextLight"
                     android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:weightSum="3">
-
                 <Button
                     android:id="@+id/btn_info_wifi"
                     android:layout_width="0dp"
@@ -123,30 +112,8 @@
                     android:textColor="@color/colorTextLight"
                     android:textSize="12sp" />
 
-                <Button
-                    android:id="@+id/btn_info_airplane"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/ic_airplanemode_active"
-                    android:text="ON"
-                    android:textColor="@color/colorTextLight"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/btn_info_location"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/ic_location_off"
-                    android:text="OFF"
-                    android:textColor="@color/colorTextLight"
-                    android:textSize="12sp" />
             </LinearLayout>
+
 
         </LinearLayout>
     </RelativeLayout>
@@ -238,7 +205,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btn_contacts"
+            android:id="@+id/btn_alarm"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -251,12 +218,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:src="@drawable/ic_contacts" />
+                android:src="@drawable/ic_alarm_white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contacts"
+                android:text="Alarm"
                 android:textColor="@color/colorDarkHead" />
         </LinearLayout>
     </LinearLayout>

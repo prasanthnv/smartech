@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:background="@color/colorPrimary"
+
     tools:context="com.smartech.smartech.smartech.SplashScreen">
 
-<TextView
+<ImageView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="SmartTech"
@@ -16,6 +17,8 @@
     android:textColor="@color/colorBg"
     android:gravity="center_horizontal"
     android:textSize="34sp"
+    android:src="@drawable/smartech"
+    android:padding="20dp"
     />
 
 </LinearLayout>

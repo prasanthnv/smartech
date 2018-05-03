@@ -1,18 +1,17 @@
-package com.smartech.smartech.smartech.Adapters;
+package com.smartech.smartech.smartech.Receivers;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.smartech.smartech.smartech.Receivers.RingtonePlayingService;
 
 public class BatteryMoniterService  extends Service {
 

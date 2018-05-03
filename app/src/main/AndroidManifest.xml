@@ -85,15 +85,21 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAAN_XJlLWtnTqjCvUAN1QEJR7tMFiQWC4" />
 
-        <activity android:name=".NewReminderActivity"></activity>
+        <activity android:name=".NewReminderActivity" />
+
         <service
+            android:name=".Receivers.BatteryMoniterService"
             android:enabled="true"
-            android:name=".Adapters.BatteryMoniterService"
-            android:exported="true"/>
+            android:exported="true" />
         <service
+            android:name=".Receivers.RingtonePlayingService"
             android:enabled="true"
-            android:name=".Adapters.RingtonePlayingService"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <activity android:name=".AlarmsActivity" />
+        <activity android:name=".ReminderAlertActivity"
+            android:theme="@style/Theme.Transparent"
+            ></activity>
     </application>
 
 </manifest>

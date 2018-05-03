@@ -1,4 +1,4 @@
-package com.smartech.smartech.smartech.Adapters;
+package com.smartech.smartech.smartech.Receivers;
 
 import android.app.Service;
 import android.content.Intent;

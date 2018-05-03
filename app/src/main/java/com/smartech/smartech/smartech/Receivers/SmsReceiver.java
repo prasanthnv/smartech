@@ -66,35 +66,28 @@ public class SmsReceiver extends BroadcastReceiver{
 
                     switch (message){
                         case "pc_ring":
-                            Alert.showModeDilaog(context, R.drawable.ic_volume_on,"Ring Mode Acticated",2000);
                             ProfileChanger.setRingMode("RING");
                             break;
                         case "pc_silent":
-                            Alert.showModeDilaog(context,R.drawable.ic_volume_off,"Silent Mode Acticated",2000);
                             ProfileChanger.setRingMode("SILENT");
 
                             break;
                         case "pc_vibrate":
-                            Alert.showModeDilaog(context,R.drawable.ic_vibration,"Vibrate Mode Acticated",2000);
                             ProfileChanger.setRingMode("VIBRATE");
                             break;
                         case "pc_tourch_on":
-                            Alert.showModeDilaog(context,android.R.drawable.ic_menu_camera,"Tourch On Mode Acticated",2000);
                             ProfileChanger.turnTourchOn(context);
                             break;
                         case "pc_tourch_off":
                             ProfileChanger.turnTourchOff();
                             break;
                         case "pc_play":
-                            Alert.showModeDilaog(context,android.R.drawable.ic_menu_view,"Hey Am Here !",2000);
                             ProfileChanger.playSound();
                             break;
                         case "pc_stop":
-                            Alert.showModeDilaog(context,android.R.drawable.ic_menu_view,"Stoped Playing !",2000);
                             ProfileChanger.stopSound();
                             break;
                         case "pc_where_are_you":
-                            Alert.showModeDilaog(context,android.R.drawable.ic_popup_reminder,"Finding Location...",2000);
 //                            ProfileChanger.getMyLocation();
                             break;
 

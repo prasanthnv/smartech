@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmarTech</string>
+    <string name="app_name">Smartech</string>
     <string name="title_activity_reminder">Reminder</string>
     <string name="title_activity_profiles">ProfilesActivity</string>
 </resources>

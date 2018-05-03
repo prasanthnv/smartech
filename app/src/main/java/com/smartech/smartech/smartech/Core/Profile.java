@@ -2,6 +2,8 @@ package com.smartech.smartech.smartech.Core;
 
 
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -180,6 +182,13 @@ public class Profile implements Serializable{
         return info;
     }
 
+    public int getBrightnessPercentage(){
+        if(this.hasBrightness()){
+            return (getBrigtness() * 100) / 255 ;
+        }
+        return 0;
+    }
+
 
 public boolean hasBrightness(){
         if(this.getBrigtness() != -1){
@@ -188,6 +197,7 @@ public boolean hasBrightness(){
             return false;
         }
 }
+
 
 
 }

@@ -1,12 +1,14 @@
 package com.smartech.smartech.smartech.Core;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class ProfileChanger {
     static AudioManager audioManager;
     static SharedPreferenceStore spStore;
     static MediaPlayer mediaPlayer;
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     static Camera camera = null;
     static Camera.Parameters camera_parameters;
     WifiManager wifiManager;
@@ -30,6 +33,7 @@ public class ProfileChanger {
         spStore = new SharedPreferenceStore(context);
         this.context = context;
         this.audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
 
 public void setBrightness(int brightness){
@@ -42,6 +46,8 @@ public void setBrightness(int brightness){
         spStore.setProfile(profile.getProfileInfoJson());
         Log.e("Profile => ", profile.getName());
         Log.e("Profile => ", profile.getSound());
+        Toast.makeText(context, "Profile "+profile.getName()+" Activated !", Toast.LENGTH_SHORT).show();
+
         switch (profile.getSound()){
             case Profile.SOUND_RING:
                 Alert.showModeDilaog(context, R.drawable.ic_volume_on,"Ring Mode Acticated",2000);
@@ -64,8 +70,7 @@ public void setBrightness(int brightness){
         }
 
 
-
-
+        spStore.setProfile(profile.getProfileInfoJson());
     }
 
     public static void setRingMode(String mode) {
@@ -111,6 +116,59 @@ public void setBrightness(int brightness){
             mediaPlayer.release();
             mediaPlayer = null;
         }
+    }
+
+
+    public Profile buildCurrentProfile(){
+        Profile profile =  new Profile("name","default");
+        // finding the current ring config's
+        switch (audioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_VIBRATE:
+               profile.setSettings("VIBRATE");
+                break;
+            case  AudioManager.RINGER_MODE_SILENT:
+                profile.setSettings("SILENT");
+                break;
+            case AudioManager.RINGER_MODE_NORMAL:
+                profile.setSettings("RING");
+                break;
+        }
+        // finding current brightness
+        try {
+            int oldBrightness = Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS);
+            profile.setBrigtness(oldBrightness);
+
+            Toast.makeText(context, ""+oldBrightness, Toast.LENGTH_SHORT).show();
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        // finding bluetooth status
+        if (mBluetoothAdapter == null) {
+            // Device does not support Bluetooth
+    Log.e("==>","Bluetooth not supported");
+        } else {
+            if (mBluetoothAdapter.isEnabled()) {
+                // Bluetooth is not enable :)
+                profile.setBluetooth(true);
+            }else{
+                profile.setBluetooth(false);
+            }
+        }
+
+        // finding wifi status
+        if (wifiManager.isWifiEnabled()){
+            //wifi is enabled
+            profile.setWifi(true);
+        }else{
+            profile.setWifi(false);
+        }
+
+
+        return profile;
+
+
+
     }
 
 

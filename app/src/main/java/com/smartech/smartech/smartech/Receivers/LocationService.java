@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.smartech.smartech.smartech.Core.Profile;
 import com.smartech.smartech.smartech.Core.ProfileChanger;
 import com.smartech.smartech.smartech.Database.DatabaseHandler;
+import com.smartech.smartech.smartech.ReminderAlertActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,12 +67,12 @@ public class LocationService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         String latlng = location.getLatitude() + "," + location.getLongitude();
-        Cursor cursor = dbHadler.getProfilesWithLocation(sqLiteDatabase);
-        if (cursor.moveToFirst()) {
+        Cursor locationCursor = dbHadler.getProfilesWithLocation(sqLiteDatabase);
+        if (locationCursor.moveToFirst()) {
             do {
-                String trigger = cursor.getString(cursor.getColumnIndex("trigger"));
+                String trigger = locationCursor.getString(locationCursor.getColumnIndex("trigger"));
                 try {
-                    Profile profile = new Profile(new JSONObject(cursor.getString(cursor.getColumnIndex("data"))));
+                    Profile profile = new Profile(new JSONObject(locationCursor.getString(locationCursor.getColumnIndex("data"))));
 
                 double latitude = Double.parseDouble(trigger.split(",")[0]);
                 double longitude = Double.parseDouble(trigger.split(",")[1]);
@@ -84,7 +85,29 @@ public class LocationService extends Service implements LocationListener {
 
                 }
 
-            } while (cursor.moveToNext());
+            } while (locationCursor.moveToNext());
+        }
+        Cursor reminderCursor = dbHadler.getReminder(sqLiteDatabase);
+        if (reminderCursor.moveToFirst()) {
+            do {
+                String trigger = reminderCursor.getString(reminderCursor.getColumnIndex("trigger"));
+
+                    String title = reminderCursor.getString(reminderCursor.getColumnIndex("title"));
+                    String data = reminderCursor.getString(reminderCursor.getColumnIndex("data"));
+
+                    double latitude = Double.parseDouble(trigger.split(",")[0]);
+                    double longitude = Double.parseDouble(trigger.split(",")[1]);
+                    double distance =  distance(location.getLatitude(), location.getLongitude(), latitude, longitude);
+
+                    if(distance < 1){
+                        Intent reminderIntent = new Intent(getApplicationContext(), ReminderAlertActivity.class);
+                        reminderIntent.putExtra("title",title);
+                        reminderIntent.putExtra("note",data);
+                        startActivity(new Intent(reminderIntent));
+                    }
+
+
+            } while (reminderCursor.moveToNext());
         }
     }
 
