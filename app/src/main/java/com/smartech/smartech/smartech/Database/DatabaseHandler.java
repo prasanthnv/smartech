@@ -32,11 +32,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         // query to create contacts table
         String CREATE_CONTACTS_TABLE = "CREATE TABLE contacts(id INTEGER PRIMARY KEY,name TEXT, phone TEXT)";
         String CREATE_REMINDER_TABLE = "CREATE TABLE reminders(id INTEGER PRIMARY KEY,title TEXT,data TEXT, trigger TEXT)";
+        String CREATE_ALARM_TABLE = "CREATE TABLE alarms(id INTEGER PRIMARY KEY,time TEXT,difficulty TEXT,times TEXT, message TEXT)";
 
         // creating tables
         db.execSQL(CREATE_PROFILES_TABLE);
         db.execSQL(CREATE_CONTACTS_TABLE);
         db.execSQL(CREATE_REMINDER_TABLE);
+        db.execSQL(CREATE_ALARM_TABLE);
     }
 
     // Upgrading database
@@ -129,4 +131,35 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL("delete from reminders where id='"+id+"'");
     }
 
+    public long addAlarm(String time,int difficulty,int times,String message ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("difficulty", difficulty);
+        values.put("time", time);
+        values.put("times", times);
+        values.put("message", message);
+        // Inserting Row
+        long id =  db.insert("alarms", null, values);
+        db.close(); // Closing database connection
+        return id;
+    }
+
+
+    public Cursor getAlarms(SQLiteDatabase db){
+        String query = "Select * from alarms";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
+    }
+
+    public Cursor getAlarmByID(SQLiteDatabase db,String id){
+        String query = "Select * from alarms  where id = '"+id+"'";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
+    }
+
+    public void deleteAlarm(SQLiteDatabase db,String id){
+        db.execSQL("delete from reminders where id='"+id+"'");
+    }
 }

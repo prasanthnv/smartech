@@ -50,19 +50,19 @@
            android:background="@drawable/rounded_button"
            android:textSize="13sp"
            android:textColor="@color/colorLightWhite"
-
-
-           />
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="35dp"
-           android:text="Snooze"
-           android:background="@android:color/transparent"
-           android:textSize="13sp"
-           android:layout_marginLeft="10dp"
-           android:textColor="@color/colorLightWhite"
-
+           android:id="@+id/btn_okay"
 
            />
+       <!--<Button-->
+           <!--android:layout_width="wrap_content"-->
+           <!--android:layout_height="35dp"-->
+           <!--android:text="Snooze"-->
+           <!--android:background="@android:color/transparent"-->
+           <!--android:textSize="13sp"-->
+           <!--android:layout_marginLeft="10dp"-->
+           <!--android:textColor="@color/colorLightWhite"-->
+
+
+           <!--/>-->
    </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:layout_gravity="bottom"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".ReminderAlertActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="42sp"
+        android:id="@+id/txt_first_number"
+        android:textStyle="normal"
+        android:gravity="center"
+        android:textColor="@color/colorLightWhite"
+
+        />
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="52sp"
+        android:text="+"
+        android:textStyle="bold"
+        android:textColor="@color/colorLightWhite"
+
+        />
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="42sp"
+        android:id="@+id/txt_second_number"
+        android:textStyle="normal"
+        android:textColor="@color/colorLightWhite"
+
+        />
+    <EditText
+        android:background="@drawable/rounded_edittext_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:gravity="center"
+        android:hint="Answer"
+        android:inputType="number"
+        android:focusable="true"
+        android:textColorHint="#cccccc"
+        android:id="@+id/txt_answer"
+        android:layout_marginTop="15dp"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Next"
+
+            android:background="@drawable/rounded_button"
+            android:textSize="13sp"
+            android:textColor="@color/colorLightWhite"
+            android:id="@+id/btn_okay"
+
+            />
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:text="Snooze"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:textSize="13sp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:textColor="@color/colorLightWhite"-->
+
+
+        <!--/>-->
+    </LinearLayout>
+</LinearLayout>

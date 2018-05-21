@@ -57,10 +57,10 @@ public class BatteryMoniterService  extends Service {
         return START_NOT_STICKY;
     }
 
-    @Override
-    public void onDestroy() {
-        unregisterReceiver(mBatteryStateReceiver);
-    }
+//    @Override
+//    public void onDestroy() {
+//          mBatteryStateReceiver=null;
+//    }
 
 
     public class PowerConnectionReceiver extends BroadcastReceiver {

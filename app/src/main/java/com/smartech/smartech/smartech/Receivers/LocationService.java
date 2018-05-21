@@ -87,11 +87,14 @@ public class LocationService extends Service implements LocationListener {
 
             } while (locationCursor.moveToNext());
         }
+
+        // handling location reminder
         Cursor reminderCursor = dbHadler.getReminder(sqLiteDatabase);
         if (reminderCursor.moveToFirst()) {
             do {
                 String trigger = reminderCursor.getString(reminderCursor.getColumnIndex("trigger"));
 
+                    String id = reminderCursor.getString(reminderCursor.getColumnIndex("id"));
                     String title = reminderCursor.getString(reminderCursor.getColumnIndex("title"));
                     String data = reminderCursor.getString(reminderCursor.getColumnIndex("data"));
 
@@ -101,8 +104,10 @@ public class LocationService extends Service implements LocationListener {
 
                     if(distance < 1){
                         Intent reminderIntent = new Intent(getApplicationContext(), ReminderAlertActivity.class);
+                        reminderIntent.putExtra("id",id);
                         reminderIntent.putExtra("title",title);
                         reminderIntent.putExtra("note",data);
+                        // showing reminder popup and removing reminder from list
                         startActivity(new Intent(reminderIntent));
                     }
 
