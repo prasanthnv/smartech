@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,25 +17,32 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.smartech.smartech.smartech.Adapters.ReminderListAdapter;
 import com.smartech.smartech.smartech.Database.DatabaseHandler;
 import com.smartech.smartech.smartech.Receivers.AlarmReceiver;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AlarmsActivity extends AppCompatActivity {
     final static int RQS_1 = 1;
     AlertDialog alarmDialog;
-    SeekBar range_difficulty,range_times;
-    TextView txt_difficulty,txt_times;
-    int difficulty = 1,times = 1;
+    SeekBar range_difficulty, range_times;
+    TextView txt_difficulty, txt_times;
+    int difficulty = 1, times = 1;
     DatabaseHandler dbHadler;
     SQLiteDatabase sqLiteDatabase;
+    ListView list_alarms;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +51,52 @@ public class AlarmsActivity extends AppCompatActivity {
         dbHadler = new DatabaseHandler(getApplicationContext());
         sqLiteDatabase = dbHadler.getWritableDatabase();
         /*-----------*/
+        list_alarms = findViewById(R.id.list_alarms);
 
+        updateAlarmList();
     }
 
+    public void updateAlarmList() {
+        final ArrayList titles = new ArrayList();
+        final ArrayList ids = new ArrayList();
+        final ArrayList notes = new ArrayList();
+        Cursor alarmCursor = dbHadler.getAlarms(sqLiteDatabase);
+        int i = 1;
+        while (alarmCursor.moveToNext()) {
+            String id = alarmCursor.getString(alarmCursor.getColumnIndex("id"));
+            String time = alarmCursor.getString(alarmCursor.getColumnIndex("time"));
+            final Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(Long.parseLong(time));
+            final String timeString =
+                    new SimpleDateFormat("hh:mm a").format(cal.getTime());
+            ids.add(id);
+            titles.add("Alarm " + i);
+            notes.add(timeString);
+            i++;
+        }
+        alarmCursor.close();
+        ReminderListAdapter profilesListAdapter = new ReminderListAdapter(AlarmsActivity.this, titles, notes);
+        list_alarms.setAdapter(profilesListAdapter);
+        list_alarms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
+                new AlertDialog.Builder(AlarmsActivity.this)
+                        .setTitle("Delete")
+                        .setMessage("Are you sure to delete")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dbHadler.deleteAlarm(sqLiteDatabase, ids.get(position).toString());
+                                updateAlarmList();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+
+
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,8 +124,9 @@ public class AlarmsActivity extends AppCompatActivity {
                 range_difficulty.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if(progress < 1) progress = 1;
-                        txt_difficulty.setText(progress + "/" + seekBar.getMax());
+                        progress = progress + 1;
+                        if (progress > 5) progress = 5;
+                        txt_difficulty.setText(progress + "/" + (seekBar.getMax() + 1) );
                         difficulty = progress;
                     }
 
@@ -91,8 +143,9 @@ public class AlarmsActivity extends AppCompatActivity {
                 range_times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if(progress < 1) progress = 1;
-                        txt_times.setText(progress + "/" + seekBar.getMax());
+                        progress = progress + 1;
+                        if (progress > 5) progress = 5;
+                        txt_times.setText(progress + "/" + (seekBar.getMax() + 1) );
                         times = progress;
                     }
 
@@ -125,17 +178,19 @@ public class AlarmsActivity extends AppCompatActivity {
         return true;
 
     }
-public void showDatePicker(){
-    Calendar mcurrentDate = Calendar.getInstance();
-    DatePickerDialog  mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            showTimePicker(dayOfMonth,monthOfYear,year);
-        }
 
-    }, mcurrentDate.get(Calendar.YEAR), mcurrentDate.get(Calendar.MONTH), mcurrentDate.get(Calendar.DAY_OF_MONTH));
-    mDatePicker.show();
-}
-    private void showTimePicker(final int day, final int month, final int year){
+    public void showDatePicker() {
+        Calendar mcurrentDate = Calendar.getInstance();
+        DatePickerDialog mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                showTimePicker(dayOfMonth, monthOfYear, year);
+            }
+
+        }, mcurrentDate.get(Calendar.YEAR), mcurrentDate.get(Calendar.MONTH), mcurrentDate.get(Calendar.DAY_OF_MONTH));
+        mDatePicker.show();
+    }
+
+    private void showTimePicker(final int day, final int month, final int year) {
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -144,9 +199,9 @@ public void showDatePicker(){
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 Calendar calSet = Calendar.getInstance();
-                calSet.set(Calendar.DATE,day);  //1-31
-                calSet.set(Calendar.MONTH,month);  //first month is 0!!! January is zero!!!
-                calSet.set(Calendar.YEAR,year);//year...
+                calSet.set(Calendar.DATE, day);  //1-31
+                calSet.set(Calendar.MONTH, month);  //first month is 0!!! January is zero!!!
+                calSet.set(Calendar.YEAR, year);//year...
 
                 calSet.set(Calendar.HOUR_OF_DAY, selectedHour);
                 calSet.set(Calendar.MINUTE, selectedMinute);
@@ -161,20 +216,25 @@ public void showDatePicker(){
     }
 
     private void setAlarm(Calendar targetCal) {
-        long id = dbHadler.addAlarm(""+targetCal.getTimeInMillis(),difficulty,times,"");
-        Toast.makeText(getApplicationContext(),"\n\n***\n" + "Alarm is set "
-                + targetCal.getTime() + "\n" + "***\n",Toast.LENGTH_LONG).show();
+        long id = dbHadler.addAlarm("" + targetCal.getTimeInMillis(), difficulty, times, "");
+        final String timeString =
+                new SimpleDateFormat("hh:mm a").format(targetCal.getTime());
+        Toast.makeText(getApplicationContext(), "Alarm is set for"
+                + timeString, Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
-        intent.putExtra("id",id);
-        Toast.makeText(getApplicationContext(),"ID : "+id,Toast.LENGTH_LONG).show();
-        intent.putExtra("time", targetCal.getTimeInMillis());
+        intent.putExtra("id", "" + id);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getBaseContext(), RQS_1, intent, 0);
+                getBaseContext(), RQS_1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),
                 pendingIntent);
-
+       finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateAlarmList();
+    }
 }

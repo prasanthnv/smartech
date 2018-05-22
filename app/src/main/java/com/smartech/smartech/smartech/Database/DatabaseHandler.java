@@ -160,6 +160,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     public void deleteAlarm(SQLiteDatabase db,String id){
-        db.execSQL("delete from reminders where id='"+id+"'");
+        db.execSQL("delete from alarms where id='"+id+"'");
     }
 }

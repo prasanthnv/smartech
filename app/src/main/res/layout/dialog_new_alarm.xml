@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content" />
             <SeekBar
                 android:layout_weight="7"
-                android:max="5"
+               android:max="4"
                 android:id="@+id/range_difficulty"
                 android:layout_marginTop="15dp"
                 android:layout_width="0dp"
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content" />
             <SeekBar
                 android:layout_weight="7"
-                android:max="5"
+               android:max="4"
                 android:id="@+id/range_times"
                 android:layout_marginTop="15dp"
                 android:layout_width="0dp"

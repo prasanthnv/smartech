@@ -11,8 +11,6 @@ import com.smartech.smartech.smartech.AlarmRingActivity;
 import com.smartech.smartech.smartech.Database.DatabaseHandler;
 
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class AlarmReceiver extends BroadcastReceiver {
     DatabaseHandler dbHandler;
     SQLiteDatabase sqLiteDatabase;
@@ -27,16 +25,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         /*-----------*/
         String alarm_id = alarm_intent.getStringExtra("id");
         Intent intent = new Intent(context, AlarmRingActivity.class);
+        Log.e("FROM RECIVER => ",""+alarm_id);
         intent.putExtra("id",alarm_id);
         context.startActivity(intent);
-        Log.e( "Alarm received! " , alarm_id);
 
 
     }
 
 
-    public void askQuestions(){
-        int randomNum = ThreadLocalRandom.current().nextInt(0, difficulty);
-    }
+
 
 }
