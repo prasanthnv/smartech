@@ -100,4 +100,8 @@ TextView txt_profile_name;
                 break;
         }
     }
+
+    public void settings(View v){
+        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+    }
 }

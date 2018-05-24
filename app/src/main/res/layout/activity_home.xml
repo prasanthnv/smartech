@@ -29,13 +29,33 @@
             android:orientation="vertical"
             android:padding="30dp">
 
-            <TextClock
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="SLEEPING"
-                android:textColor="@color/colorTextLight"
-                android:textSize="40sp" />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:orientation="horizontal"
+          android:weightSum="5"
+          android:layout_height="wrap_content">
+          <TextClock
+              android:layout_width="0dp"
+              android:layout_weight="4"
+              android:layout_height="wrap_content"
+              android:fontFamily="sans-serif"
+              android:text="SLEEPING"
+              android:textColor="@color/colorTextLight"
+              android:textSize="40sp" />
+          <ImageButton
+              android:layout_width="0dp"
+              android:layout_weight="1"
+              android:paddingTop="20dp"
+              android:onClick="settings"
+              android:layout_height="wrap_content"
+             android:src="@drawable/ic_settings_black_24dp"
+              android:background="@android:color/transparent"
+              android:foregroundGravity="right"
+              android:layout_gravity="right"
+
+
+              />
+      </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,7 +91,6 @@
                     android:background="@android:color/transparent"
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/ic_volume_off"
-                    android:onClick="click"
                     android:text="Silent"
                     android:textColor="@color/colorTextLight"
                     android:textSize="12sp" />
@@ -84,7 +103,6 @@
                     android:background="@android:color/transparent"
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/ic_brightness_low"
-                    android:onClick="show"
                     android:text="10%"
                     android:textColor="@color/colorTextLight"
                     android:textSize="12sp" />

@@ -12,13 +12,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.smartech.smartech.smartech.Receivers.RingtonePlayingService;
+import com.smartech.smartech.smartech.SharedPreferenceStore.SharedPreferenceStore;
 
 public class BatteryMoniterService  extends Service {
-
+    SharedPreferenceStore spStore;
     private BroadcastReceiver mBatteryStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
+            spStore = new SharedPreferenceStore(context);
             if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
                 Toast.makeText(context, "The device is charging", Toast.LENGTH_SHORT).show();
 
@@ -70,40 +71,41 @@ public class BatteryMoniterService  extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            spStore = new SharedPreferenceStore(context);
+            if (spStore.isBatteryAlarmEnabled()) {
+                int level = intent.getIntExtra("level", 0);
+                String battery = String.valueOf(level) + "%";
+                Log.i("battery => ", battery);
 
-            int level = intent.getIntExtra( "level", 0 );
-            String battery = String.valueOf(level) + "%" ;
-            Log.i("battery => ", battery);
+                int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                        status == BatteryManager.BATTERY_STATUS_FULL;
+                Log.w("Power status", isCharging + "");
 
-            int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-            boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                    status == BatteryManager.BATTERY_STATUS_FULL;
-            Log.w("Power status",isCharging+"");
+                if (isCharging && level == 100) {
+                    // battery @ 100%
+                    Intent startIntent = new Intent(context, RingtonePlayingService.class);
+                    context.startService(startIntent);
+                } else {
+                    Intent stopIntent = new Intent(context, RingtonePlayingService.class);
+                    context.stopService(stopIntent);
+                }
 
-            if(isCharging && level == 100){
-                // battery @ 100%
-                Intent startIntent = new Intent(context, RingtonePlayingService.class);
-                context.startService(startIntent);
-            }else{
-                Intent stopIntent = new Intent(context, RingtonePlayingService.class);
-                context.stopService(stopIntent);
-            }
-
-                if(!isCharging && level == 4){
-                // battery @ 4%
-                Intent startIntent = new Intent(context, RingtonePlayingService.class);
-                startIntent.putExtra("type","alarm");
-                context.startService(startIntent);
-            }
+                if (!isCharging && level == spStore.getBatteryLowLevel()) {
+                    // battery @ 4%
+                    Intent startIntent = new Intent(context, RingtonePlayingService.class);
+                    startIntent.putExtra("type", "alarm");
+                    context.startService(startIntent);
+                }
 
 
-            if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
-                Log.w("Power","CONNECTED");
+                if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+                    Log.w("Power", "CONNECTED");
+                }
+                if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {
+                    Log.w("Power", "DISCONNECTED");
 
-            }
-                if(intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)){
-                Log.w("Power","DISCONNECTED");
-
+                }
             }
         }
 

@@ -35,4 +35,23 @@ public class SharedPreferenceStore {
         return this.preferences.getString("ACTIVE_PROFILE","{}");
     }
 
+
+    public void setIgnoreList(String data){
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.putString("IGNORE_LIST",data);
+        editor.commit();
+    }
+    public String getIgnoredList(){
+        return this.preferences.getString("IGNORE_LIST","[]");
+    }
+
+    public void setBatteryLowLevel(int data){
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.putInt("BATTERY_LOW",data);
+        editor.commit();
+    }
+    public int getBatteryLowLevel(){
+        return this.preferences.getInt("BATTERY_LOW",5);
+    }
+
 }
