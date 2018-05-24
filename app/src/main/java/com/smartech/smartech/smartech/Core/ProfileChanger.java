@@ -172,4 +172,21 @@ public void setBrightness(int brightness){
     }
 
 
+    public String getRingMode(){
+        String mode = "";
+        switch (audioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_VIBRATE:
+                mode = "VIBRATE";
+                break;
+            case  AudioManager.RINGER_MODE_SILENT:
+                mode = "SILENT";
+                break;
+            case AudioManager.RINGER_MODE_NORMAL:
+                mode = "RING";
+                break;
+        }
+        return  mode;
+    }
+
+
 }

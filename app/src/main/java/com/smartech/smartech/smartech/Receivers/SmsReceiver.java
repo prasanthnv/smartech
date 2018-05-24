@@ -50,7 +50,7 @@ public class SmsReceiver extends BroadcastReceiver{
                     String message = currentMessage.getDisplayMessageBody();
 
                     Log.i("SmsReceiver", "senderNum: "+ senderNum + "; message: " + message);
-                    Cursor rs = dbHandler.getSmsAction(db,message);
+                    Cursor rs = dbHandler.getSmsAction(db,message.trim());
                 if(rs.moveToFirst()){
 
                     String profileData = rs.getString(rs.getColumnIndex("data"));
@@ -64,7 +64,7 @@ public class SmsReceiver extends BroadcastReceiver{
                     toast.show();
 
 
-                    switch (message){
+                    switch (message.trim()){
                         case "pc_ring":
                             ProfileChanger.setRingMode("RING");
                             break;

@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by prasanthvenugopal on 13/04/18.
  */
 
-public class SharedPreferenceStore {
+public class    SharedPreferenceStore {
     SharedPreferences preferences;
     public SharedPreferenceStore(Context context){
         this.preferences = context.getSharedPreferences("smartech_preferences",Context.MODE_PRIVATE);
@@ -32,7 +32,7 @@ public class SharedPreferenceStore {
     }
 
     public String getProfile(){
-        return this.preferences.getString("ACTIVE_PROFILE","{}");
+        return this.preferences.getString("ACTIVE_PROFILE","{name:''}");
     }
 
 
@@ -52,6 +52,25 @@ public class SharedPreferenceStore {
     }
     public int getBatteryLowLevel(){
         return this.preferences.getInt("BATTERY_LOW",5);
+    }
+
+
+    public void setLastCall(String data){
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.putString("LASTCALL",data);
+        editor.commit();
+    }
+    public String  getLastCall(){
+        return this.preferences.getString("LASTCALL","{}");
+    }
+
+    public void setPrevRingState(String data){
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.putString("PREV_RING_STATE",data);
+        editor.commit();
+    }
+    public String  getPrevRingState(){
+        return this.preferences.getString("PREV_RING_STATE","{}");
     }
 
 }

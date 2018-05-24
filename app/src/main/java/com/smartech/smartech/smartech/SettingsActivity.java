@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class SettingsActivity extends AppCompatActivity {
 Switch toggle_battery_low;
 SeekBar range_battery_low;
-EditText txt_backup_phone,txt_phone;
+EditText txt_phone;
 ListView list_phones;
 TextView txt_battery_level_show;
     SharedPreferenceStore spStore;
@@ -35,8 +35,6 @@ TextView txt_battery_level_show;
         setContentView(R.layout.activity_settings);
         spStore = new SharedPreferenceStore(getApplicationContext());
         toggle_battery_low = findViewById(R.id.toggle_battery_low);
-        txt_backup_phone = findViewById(R.id.txt_backup_phone);
-        txt_backup_phone = findViewById(R.id.txt_backup_phone);
         list_phones = findViewById(R.id.list_phones);
         txt_battery_level_show = findViewById(R.id.txt_battery_level_show);
         range_battery_low = findViewById(R.id.range_battery_low);
