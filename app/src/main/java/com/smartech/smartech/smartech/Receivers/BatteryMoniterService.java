@@ -93,7 +93,7 @@ public class BatteryMoniterService  extends Service {
 
                 if (!isCharging && level == spStore.getBatteryLowLevel()) {
                     // battery @ 4%
-                    Toast.makeText(context, "SMS send to "+spStore.getBackupNumber(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "SMS send to "+spStore.getBackupNumber(), Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(context, RingtonePlayingService.class);
                     startIntent.putExtra("type", "alarm");
                     context.startService(startIntent);
