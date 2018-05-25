@@ -73,4 +73,15 @@ public class    SharedPreferenceStore {
         return this.preferences.getString("PREV_RING_STATE","{}");
     }
 
+    public void setBackupNumber(String data){
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.putString("BACKUP_NUMBER",data);
+        editor.commit();
+    }
+
+    public String  getBackupNumber(){
+        return this.preferences.getString("BACKUP_NUMBER","");
+    }
+
 }
+

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,7 +27,8 @@ import java.util.ArrayList;
 public class SettingsActivity extends AppCompatActivity {
 Switch toggle_battery_low;
 SeekBar range_battery_low;
-EditText txt_phone;
+
+    EditText txt_phone,txt_backup_number;
 ListView list_phones;
 TextView txt_battery_level_show;
     SharedPreferenceStore spStore;
@@ -38,6 +41,7 @@ TextView txt_battery_level_show;
         list_phones = findViewById(R.id.list_phones);
         txt_battery_level_show = findViewById(R.id.txt_battery_level_show);
         range_battery_low = findViewById(R.id.range_battery_low);
+        txt_backup_number = findViewById(R.id.txt_backup_number);
         txt_phone = findViewById(R.id.txt_phone);
         init();
         showIgnoreList();
@@ -64,6 +68,25 @@ TextView txt_battery_level_show;
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        txt_backup_number = findViewById(R.id.txt_backup_number);
+        txt_backup_number.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                spStore.setBackupNumber(charSequence.toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });
@@ -133,6 +156,7 @@ TextView txt_battery_level_show;
         toggle_battery_low.setChecked(spStore.isBatteryAlarmEnabled());
         range_battery_low.setProgress(spStore.getBatteryLowLevel());
         txt_battery_level_show.setText(spStore.getBatteryLowLevel()+"%");
+        txt_backup_number.setText(spStore.getBackupNumber());
     }
 }
 
